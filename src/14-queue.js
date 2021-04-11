@@ -12,15 +12,22 @@
  */
 
 class Queue {
+/*   constructor() {
+    this.elements = [];
+  } */
+
   get size() {
+    // return this.elements.length;
     throw new Error('Not implemented');
   }
 
   enqueue(/* element */) {
+    // this.elements.push(element);
     throw new Error('Not implemented');
   }
 
   dequeue() {
+    // this.elements.shift();
     throw new Error('Not implemented');
   }
 }
