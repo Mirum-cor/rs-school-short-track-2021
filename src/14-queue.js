@@ -1,4 +1,4 @@
-// const ListNode = require('../extensions/list-node');
+const ListNode = require('../extensions/list-node');
 /**
  * Implement the Queue with a given interface via linked list (use ListNode extension above).
  *
@@ -11,24 +11,51 @@
  *
  */
 
-class Queue {
-/*   constructor() {
-    this.elements = [];
-  } */
+function convertArrayToList(arr) {
+  return arr.reverse().reduce((acc, cur) => {
+    if (acc) {
+      const node = new ListNode(cur);
+      node.next = acc;
+      return node;
+    }
+    return new ListNode(cur);
+  }, null);
+}
 
-  get size() {
-    // return this.elements.length;
-    throw new Error('Not implemented');
+function convertListToArray(list) {
+  let helper = list;
+  const array = [];
+  while (helper && helper.value) {
+    array.push(helper.value);
+    helper = helper.next;
+  }
+  return array;
+}
+class Queue {
+  constructor() {
+    this.elements = {};
   }
 
-  enqueue(/* element */) {
-    // this.elements.push(element);
-    throw new Error('Not implemented');
+  get size() {
+    const elementsArray = convertListToArray(this.elements);
+    return elementsArray.length;
+  }
+
+  enqueue(element) {
+    if (this.size) {
+      const elementsArray = convertListToArray(this.elements);
+      elementsArray.push(element);
+      this.elements = convertArrayToList(elementsArray);
+    } else {
+      this.elements = new ListNode(element);
+    }
   }
 
   dequeue() {
-    // this.elements.shift();
-    throw new Error('Not implemented');
+    const elementsArray = convertListToArray(this.elements);
+    const topElement = elementsArray.shift();
+    this.elements = convertArrayToList(elementsArray);
+    return topElement;
   }
 }
 
